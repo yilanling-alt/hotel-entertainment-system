@@ -51,6 +51,23 @@ type
     ColorBox1: TColorBox;
     RichEdit1: TRichEdit;
     ComboBox2: TComboBox;
+    TabSheet1: TTabSheet;
+    ComboBox3: TComboBox;
+    DateTimePicker1: TDateTimePicker;
+    ComboBox4: TComboBox;
+    RadioGroup2: TRadioGroup;
+    RadioButton4: TRadioButton;
+    RadioButton5: TRadioButton;
+    CheckBox18: TCheckBox;
+    CheckBox19: TCheckBox;
+    CheckBox20: TCheckBox;
+    CheckBox21: TCheckBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    ListBox4: TListBox;
+    Button3: TButton;
+    TrackBar1: TTrackBar;
+    Label3: TLabel;
     procedure TabgymContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabrelaxContextPopup(Sender: TObject; MousePos: TPoint;
@@ -60,6 +77,9 @@ type
     procedure RichEdit1Change(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure TrackBar1Change(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -83,6 +103,16 @@ begin
  RichEdit1.Clear;
 end;
 
+procedure TFormentertainment.Button3Click(Sender: TObject);
+begin
+
+  ListBox4.Items.Add('1. Autumn Leaves - Ed Sheeran');
+  ListBox4.Items.Add('2. Sweater Weather - The Neighbourhood');
+
+  ListBox4.Items.Add('3. 枫 - 周杰伦');
+
+end;
+
 procedure TFormentertainment.ComboBox2Change(Sender: TObject);
 begin
  RichEdit1.SelAttributes.Name := ComboBox1.Text;
@@ -104,6 +134,8 @@ var
 
 end;
 
+
+
 procedure TFormentertainment.RichEdit1Change(Sender: TObject);
 begin
  RichEdit1.SelAttributes.Color := clRed;
@@ -121,6 +153,11 @@ procedure TFormentertainment.TabrelaxContextPopup(Sender: TObject;
 begin
   tabrelax.caption:='relax area';
   showmessage('those have heat sensitivity or skin condition should consider carefully.');
+end;
+
+procedure TFormentertainment.TrackBar1Change(Sender: TObject);
+begin
+  Label3.Caption := 'Vol: ' + IntToStr(TrackBar1.Position);
 end;
 
 end.
