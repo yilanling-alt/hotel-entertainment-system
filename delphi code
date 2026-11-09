@@ -9,7 +9,6 @@ uses
 
 type
   TFormentertainment = class(TForm)
-    welcome: TEdit;
     hotel: TPageControl;
     Tabgym: TTabSheet;
     CheckBox1: TCheckBox;
@@ -68,6 +67,11 @@ type
     Button3: TButton;
     TrackBar1: TTrackBar;
     Label3: TLabel;
+    ProgressBartemp: TProgressBar;
+    Timerheat: TTimer;
+    Label4: TLabel;
+    Buttonheat: TButton;
+    Edit1: TEdit;
     procedure TabgymContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabrelaxContextPopup(Sender: TObject; MousePos: TPoint;
@@ -79,6 +83,8 @@ type
     procedure ComboBox2Change(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
+    procedure ButtonheatClick(Sender: TObject);
+    procedure TimerheatTimer(Sender: TObject);
 
   private
     { Private declarations }
@@ -111,6 +117,13 @@ begin
 
   ListBox4.Items.Add('3. 枫 - 周杰伦');
 
+end;
+
+procedure TFormentertainment.ButtonheatClick(Sender: TObject);
+begin
+ ProgressBarTemp.Position := 15; // 重置到初始温度 15℃
+  Label4.Caption := '15 ℃';
+  TimerHeat.Enabled := True; // 开启定时器，锅炉开始烧！
 end;
 
 procedure TFormentertainment.ComboBox2Change(Sender: TObject);
@@ -153,6 +166,21 @@ procedure TFormentertainment.TabrelaxContextPopup(Sender: TObject;
 begin
   tabrelax.caption:='relax area';
   showmessage('those have heat sensitivity or skin condition should consider carefully.');
+end;
+
+procedure TFormentertainment.TimerheatTimer(Sender: TObject);
+begin
+ // 如果当前温度还没到 70℃
+  if ProgressBarTemp.Position < ProgressBarTemp.Max then
+  begin
+    ProgressBarTemp.Position := ProgressBarTemp.Position + 1; // 温度上升1度
+    Label4.Caption := IntToStr(ProgressBarTemp.Position) + ' ℃';
+  end
+  else
+  begin
+    TimerHeat.Enabled := False; // 到了 70度，自动停止加热
+    ShowMessage('叮！桑拿房已达到 ' + IntToStr(ProgressBarTemp.Max) + '℃，请客人入内！');
+end;
 end;
 
 procedure TFormentertainment.TrackBar1Change(Sender: TObject);
