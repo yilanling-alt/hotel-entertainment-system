@@ -10,23 +10,16 @@ object Formentertainment: TFormentertainment
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  StyleName = 'Windows'
   OnCreate = FormCreate
   TextHeight = 15
-  object welcome: TEdit
-    Left = 48
-    Top = 32
-    Width = 289
-    Height = 23
-    TabOrder = 0
-    Text = 'welcome to entertainment system in our hotel'
-  end
   object hotel: TPageControl
     Left = 48
     Top = 80
     Width = 577
     Height = 313
     ActivePage = TabSheet1
-    TabOrder = 1
+    TabOrder = 0
     object Tabgym: TTabSheet
       Caption = 'Tabgym'
       OnContextPopup = TabgymContextPopup
@@ -102,7 +95,7 @@ object Formentertainment: TFormentertainment
       end
       object VirtualImage4: TVirtualImage
         Left = 240
-        Top = 151
+        Top = 155
         Width = 169
         Height = 122
         ImageCollection = ImageCollection1
@@ -110,6 +103,13 @@ object Formentertainment: TFormentertainment
         ImageHeight = 0
         ImageIndex = 34
         ImageName = 'jacuzzi'
+      end
+      object Label4: TLabel
+        Left = 440
+        Top = 42
+        Width = 20
+        Height = 15
+        Caption = '15C'
       end
       object RadioGroup1: TRadioGroup
         Left = 64
@@ -170,6 +170,25 @@ object Formentertainment: TFormentertainment
         Caption = 'add to bill'
         TabOrder = 5
         OnClick = Button1Click
+      end
+      object ProgressBartemp: TProgressBar
+        Left = 415
+        Top = 19
+        Width = 150
+        Height = 17
+        Min = 15
+        Max = 70
+        Position = 15
+        TabOrder = 6
+      end
+      object Buttonheat: TButton
+        Left = 474
+        Top = 42
+        Width = 75
+        Height = 25
+        Caption = 'heating'
+        TabOrder = 7
+        OnClick = ButtonheatClick
       end
     end
     object TabBar: TTabSheet
@@ -356,6 +375,13 @@ object Formentertainment: TFormentertainment
         Height = 15
         Caption = '40-50 euros per VIP room'
       end
+      object Label3: TLabel
+        Left = 24
+        Top = 113
+        Width = 40
+        Height = 15
+        Caption = 'volume'
+      end
       object ComboBox3: TComboBox
         Left = 24
         Top = 3
@@ -369,11 +395,11 @@ object Formentertainment: TFormentertainment
           'VIP')
       end
       object DateTimePicker1: TDateTimePicker
-        Left = 207
+        Left = 191
         Top = 3
         Width = 186
         Height = 23
-        Date = 46334.000000000000000000
+        Date = 46336.000000000000000000
         Time = 0.558087812496523800
         TabOrder = 1
       end
@@ -382,6 +408,7 @@ object Formentertainment: TFormentertainment
         Top = 3
         Width = 145
         Height = 23
+        Style = csDropDownList
         TabOrder = 2
         Items.Strings = (
           '19:00-21:00'
@@ -412,10 +439,11 @@ object Formentertainment: TFormentertainment
         TabOrder = 5
       end
       object ListBox4: TListBox
-        Left = 196
-        Top = 42
-        Width = 149
-        Height = 215
+        Left = 179
+        Top = 32
+        Width = 191
+        Height = 214
+        IntegralHeight = True
         ItemHeight = 15
         TabOrder = 6
       end
@@ -428,6 +456,67 @@ object Formentertainment: TFormentertainment
         TabOrder = 7
         OnClick = Button3Click
       end
+      object CheckBox18: TCheckBox
+        Left = 76
+        Top = 154
+        Width = 97
+        Height = 17
+        Caption = 'fruit platter'
+        TabOrder = 8
+      end
+      object CheckBox19: TCheckBox
+        Left = 76
+        Top = 177
+        Width = 97
+        Height = 17
+        Caption = 'beer package'
+        TabOrder = 9
+      end
+      object CheckBox20: TCheckBox
+        Left = 76
+        Top = 200
+        Width = 97
+        Height = 17
+        Caption = 'popcorn'
+        TabOrder = 10
+      end
+      object CheckBox21: TCheckBox
+        Left = 76
+        Top = 223
+        Width = 97
+        Height = 17
+        Caption = 'throat lozenge'
+        TabOrder = 11
+      end
+      object TrackBar1: TTrackBar
+        Left = 19
+        Top = 71
+        Width = 150
+        Height = 36
+        Max = 80
+        TabOrder = 12
+        OnChange = TrackBar1Change
+      end
+      object TreeView1: TTreeView
+        Left = 376
+        Top = 199
+        Width = 97
+        Height = 81
+        Indent = 19
+        TabOrder = 13
+        Items.NodeData = {
+          070100000009540054007200650065004E006F00640065003100000000000000
+          00000000FFFFFFFFFFFFFFFF0000000000000000000600000001094B00540056
+          00200072006F006F006D0073000000250000000000000000000000FFFFFFFFFF
+          FFFFFF0000000000000000000000000001033100300031000000250000000000
+          000000000000FFFFFFFFFFFFFFFF000000000000000000000000000103310030
+          0032000000250000000000000000000000FFFFFFFFFFFFFFFF00000000000000
+          00000000000001033200300031000000250000000000000000000000FFFFFFFF
+          FFFFFFFF00000000000000000000000000010332003000320000002500000000
+          00000000000000FFFFFFFFFFFFFFFF0000000000000000000000000001033300
+          300031000000250000000000000000000000FFFFFFFFFFFFFFFF000000000000
+          000000000000000103330030003200}
+      end
     end
   end
   object Button2: TButton
@@ -436,7 +525,7 @@ object Formentertainment: TFormentertainment
     Width = 75
     Height = 25
     Caption = 'reset'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = Button2Click
   end
   object ColorBox1: TColorBox
@@ -444,7 +533,7 @@ object Formentertainment: TFormentertainment
     Top = 411
     Width = 145
     Height = 22
-    TabOrder = 3
+    TabOrder = 2
   end
   object ComboBox2: TComboBox
     Left = 428
@@ -452,7 +541,7 @@ object Formentertainment: TFormentertainment
     Width = 145
     Height = 23
     Style = csDropDownList
-    TabOrder = 4
+    TabOrder = 3
     OnChange = ComboBox2Change
     Items.Strings = (
       'Arial'
@@ -463,37 +552,17 @@ object Formentertainment: TFormentertainment
       ''
       'Microsoft YaHei')
   end
-  object CheckBox18: TCheckBox
-    Left = 76
-    Top = 154
-    Width = 97
-    Height = 17
-    Caption = 'fruit platter'
-    TabOrder = 5
-  end
-  object CheckBox19: TCheckBox
-    Left = 76
-    Top = 177
-    Width = 97
-    Height = 17
-    Caption = 'beer package'
-    TabOrder = 6
-  end
-  object CheckBox20: TCheckBox
-    Left = 76
-    Top = 200
-    Width = 97
-    Height = 17
-    Caption = 'popcorn'
-    TabOrder = 7
-  end
-  object CheckBox21: TCheckBox
-    Left = 76
-    Top = 223
-    Width = 97
-    Height = 17
-    Caption = 'throat lozenge'
-    TabOrder = 8
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 434
+    Width = 676
+    Height = 19
+    Panels = <
+      item
+        Width = 50
+      end>
+    SimplePanel = True
+    ExplicitTop = 0
   end
   object ImageCollection1: TImageCollection
     Images = <
@@ -60975,5 +61044,10 @@ object Formentertainment: TFormentertainment
       end>
     Left = 516
     Top = 24
+  end
+  object Timerheat: TTimer
+    OnTimer = TimerheatTimer
+    Left = 560
+    Top = 272
   end
 end

@@ -9,7 +9,6 @@ uses
 
 type
   TFormentertainment = class(TForm)
-    welcome: TEdit;
     hotel: TPageControl;
     Tabgym: TTabSheet;
     CheckBox1: TCheckBox;
@@ -66,6 +65,14 @@ type
     Label2: TLabel;
     ListBox4: TListBox;
     Button3: TButton;
+    TrackBar1: TTrackBar;
+    Label3: TLabel;
+    ProgressBartemp: TProgressBar;
+    Timerheat: TTimer;
+    Label4: TLabel;
+    Buttonheat: TButton;
+    StatusBar1: TStatusBar;
+    TreeView1: TTreeView;
     procedure TabgymContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabrelaxContextPopup(Sender: TObject; MousePos: TPoint;
@@ -76,7 +83,10 @@ type
     procedure Button2Click(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
     procedure Button3Click(Sender: TObject);
-
+    procedure TrackBar1Change(Sender: TObject);
+    procedure ButtonheatClick(Sender: TObject);
+    procedure TimerheatTimer(Sender: TObject);
+    
   private
     { Private declarations }
   public
@@ -102,18 +112,19 @@ end;
 
 procedure TFormentertainment.Button3Click(Sender: TObject);
 begin
-  ListBox1.Items.Clear; // 每次点击前先清空，防止重复添加
-  ListBox1.Items.Add('1. Autumn Leaves - Ed Sheeran');
-  ListBox1.Items.Add('2. Sweater Weather - The Neighbourhood');
-  ListBox1.Items.Add('3. Holocene - Bon Iver');
-  ListBox1.Items.Add('4. Wake Me Up When September Ends');
-  // 避开那个容易出错的单引号，我们直接写歌名
-  ListBox1.Items.Add('5. November Rain - Guns N Roses');
-  ListBox1.Items.Add('6. Lofi Chillhop - Autumn Beats');
-  ListBox1.Items.Add('7. 枫 - 周杰伦');
-  ListBox1.Items.Add('8. 秋天别来 - 侯湘婷');
-  ListBox1.Items.Add('9. 晚风 - 伍佰');
-  ListBox1.Items.Add('10. 极光女孩的赛博秋天');
+
+  ListBox4.Items.Add('1. Autumn Leaves - Ed Sheeran');
+  ListBox4.Items.Add('2. Sweater Weather - The Neighbourhood');
+
+  ListBox4.Items.Add('3. 枫 - 周杰伦');
+
+end;
+
+procedure TFormentertainment.ButtonheatClick(Sender: TObject);
+begin
+ ProgressBarTemp.Position := 15; // 重置到初始温度 15℃
+  Label4.Caption := '15 ℃';
+  TimerHeat.Enabled := True; // 开启定时器，锅炉开始烧！
 end;
 
 procedure TFormentertainment.ComboBox2Change(Sender: TObject);
@@ -134,8 +145,10 @@ var
     1,2,12:colorbox1.selected:=clWhite;
  end;
  self.color:=colorbox1.selected;
-
+ StatusBar1.SimpleText := 'welcome to hotel entertainment system';
 end;
+
+
 
 
 
@@ -156,6 +169,26 @@ procedure TFormentertainment.TabrelaxContextPopup(Sender: TObject;
 begin
   tabrelax.caption:='relax area';
   showmessage('those have heat sensitivity or skin condition should consider carefully.');
+end;
+
+procedure TFormentertainment.TimerheatTimer(Sender: TObject);
+begin
+ // 如果当前温度还没到 70℃
+  if ProgressBarTemp.Position < ProgressBarTemp.Max then
+  begin
+    ProgressBarTemp.Position := ProgressBarTemp.Position + 1; // 温度上升1度
+    Label4.Caption := IntToStr(ProgressBarTemp.Position) + ' ℃';
+  end
+  else
+  begin
+    TimerHeat.Enabled := False; // 到了 70度，自动停止加热
+    ShowMessage('叮！桑拿房已达到 ' + IntToStr(ProgressBarTemp.Max) + '℃，请客人入内！');
+end;
+end;
+
+procedure TFormentertainment.TrackBar1Change(Sender: TObject);
+begin
+  Label3.Caption := 'Vol: ' + IntToStr(TrackBar1.Position);
 end;
 
 end.
