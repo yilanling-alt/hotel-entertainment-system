@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, system.dateutils,
-  Vcl.ExtCtrls, Vcl.VirtualImage, Vcl.BaseImageCollection, Vcl.ImageCollection;
+  Vcl.ExtCtrls, Vcl.VirtualImage, Vcl.BaseImageCollection, Vcl.ImageCollection, XPStyleActnCtrls,
+  System.ImageList, Vcl.ImgList, Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls;
 
 type
   TFormentertainment = class(TForm)
@@ -73,6 +74,11 @@ type
     Buttonheat: TButton;
     StatusBar1: TStatusBar;
     TreeView1: TTreeView;
+    ToolBar1: TToolBar;
+    ImageList1: TImageList;
+    ActionToolBar1: TActionToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
     procedure TabgymContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabrelaxContextPopup(Sender: TObject; MousePos: TPoint;
@@ -86,7 +92,8 @@ type
     procedure TrackBar1Change(Sender: TObject);
     procedure ButtonheatClick(Sender: TObject);
     procedure TimerheatTimer(Sender: TObject);
-    
+
+
   private
     { Private declarations }
     ClickCount: Integer;
@@ -163,6 +170,8 @@ var
  StatusBar1.SimpleText := 'welcome to hotel entertainment system';
  ClickCount := 0;
 end;
+
+
 
 
 
