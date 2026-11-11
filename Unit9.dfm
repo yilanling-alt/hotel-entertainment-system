@@ -18,7 +18,7 @@ object Formentertainment: TFormentertainment
     Top = 80
     Width = 577
     Height = 313
-    ActivePage = TabSheet1
+    ActivePage = Tabrelax
     TabOrder = 0
     object Tabgym: TTabSheet
       Caption = 'Tabgym'
@@ -562,7 +562,6 @@ object Formentertainment: TFormentertainment
         Width = 50
       end>
     SimplePanel = True
-    ExplicitTop = 0
   end
   object ImageCollection1: TImageCollection
     Images = <

@@ -89,6 +89,7 @@ type
     
   private
     { Private declarations }
+    ClickCount: Integer;
   public
     { Public declarations }
   end;
@@ -102,8 +103,22 @@ implementation
 
 procedure TFormentertainment.Button1Click(Sender: TObject);
 begin
- showmessage('please add to the bill')
+ showmessage('please add to the bill');
+ Inc(ClickCount);
+
+  if ClickCount >= 10 then
+  begin
+    // 触发彩蛋！
+    ShowMessage('? 警告：客人，您的手速太快了！' + #13#10 +
+                '系统已自动为您点了一份“松鼠特供三文鱼刺身配椰奶”，账单+100欧！');
+
+    // 如果你有 TMediaPlayer 组件，还能在这里放一段音乐：
+    // MediaPlayer1.Play;
+
+    ClickCount := 0; // 彩蛋触发后，计数器重置，免得一直弹窗
+  end;
 end;
+
 
 procedure TFormentertainment.Button2Click(Sender: TObject);
 begin
@@ -146,6 +161,7 @@ var
  end;
  self.color:=colorbox1.selected;
  StatusBar1.SimpleText := 'welcome to hotel entertainment system';
+ ClickCount := 0;
 end;
 
 
