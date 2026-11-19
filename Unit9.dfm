@@ -3,7 +3,7 @@ object Formentertainment: TFormentertainment
   Top = 0
   Caption = 'Formentertainment'
   ClientHeight = 453
-  ClientWidth = 676
+  ClientWidth = 784
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object Formentertainment: TFormentertainment
     Top = 80
     Width = 577
     Height = 313
-    ActivePage = TabBar
+    ActivePage = TabSheet1
     TabOrder = 0
     object Tabgym: TTabSheet
       Caption = 'Tabgym'
@@ -439,7 +439,7 @@ object Formentertainment: TFormentertainment
         TabOrder = 5
       end
       object ListBox4: TListBox
-        Left = 179
+        Left = 175
         Top = 32
         Width = 191
         Height = 214
@@ -463,6 +463,7 @@ object Formentertainment: TFormentertainment
         Height = 17
         Caption = 'fruit platter'
         TabOrder = 8
+        OnClick = CheckBox18Click
       end
       object CheckBox19: TCheckBox
         Left = 76
@@ -471,6 +472,7 @@ object Formentertainment: TFormentertainment
         Height = 17
         Caption = 'beer package'
         TabOrder = 9
+        OnClick = CheckBox18Click
       end
       object CheckBox20: TCheckBox
         Left = 76
@@ -479,14 +481,16 @@ object Formentertainment: TFormentertainment
         Height = 17
         Caption = 'popcorn'
         TabOrder = 10
+        OnClick = CheckBox18Click
       end
       object CheckBox21: TCheckBox
-        Left = 76
+        Left = 72
         Top = 223
         Width = 97
         Height = 17
         Caption = 'throat lozenge'
         TabOrder = 11
+        OnClick = CheckBox18Click
       end
       object TrackBar1: TTrackBar
         Left = 19
@@ -533,6 +537,7 @@ object Formentertainment: TFormentertainment
     Top = 411
     Width = 145
     Height = 22
+    NoneColorColor = clBurlywood
     TabOrder = 2
   end
   object ComboBox2: TComboBox
@@ -555,25 +560,24 @@ object Formentertainment: TFormentertainment
   object StatusBar1: TStatusBar
     Left = 0
     Top = 434
-    Width = 676
+    Width = 784
     Height = 19
     Panels = <
       item
         Width = 50
       end>
     SimplePanel = True
+    ExplicitWidth = 676
   end
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 676
+    Width = 784
     Height = 29
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 5
-    ExplicitLeft = 272
-    ExplicitTop = 232
-    ExplicitWidth = 150
+    ExplicitWidth = 676
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -61093,7 +61097,7 @@ object Formentertainment: TFormentertainment
     Top = 272
   end
   object ImageList1: TImageList
-    Left = 640
+    Left = 680
     Top = 80
     Bitmap = {
       494C010106000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
