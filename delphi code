@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, system.dateutils,
-  Vcl.ExtCtrls, Vcl.VirtualImage, Vcl.BaseImageCollection, Vcl.ImageCollection;
+  Vcl.ExtCtrls, Vcl.VirtualImage, Vcl.BaseImageCollection, Vcl.ImageCollection, XPStyleActnCtrls,
+  System.ImageList, Vcl.ImgList, Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls;
 
 type
   TFormentertainment = class(TForm)
@@ -73,6 +74,11 @@ type
     Buttonheat: TButton;
     StatusBar1: TStatusBar;
     TreeView1: TTreeView;
+    ToolBar1: TToolBar;
+    ImageList1: TImageList;
+    ActionToolBar1: TActionToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
     procedure TabgymContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabrelaxContextPopup(Sender: TObject; MousePos: TPoint;
@@ -86,10 +92,14 @@ type
     procedure TrackBar1Change(Sender: TObject);
     procedure ButtonheatClick(Sender: TObject);
     procedure TimerheatTimer(Sender: TObject);
-    
+    procedure CheckBox18Click(Sender: TObject);
+
+
+
   private
     { Private declarations }
     ClickCount: Integer;
+    procedure updateroomordertotal;
   public
     { Public declarations }
   end;
@@ -109,11 +119,10 @@ begin
   if ClickCount >= 10 then
   begin
     // 触发彩蛋！
-    ShowMessage('️ 警告：客人，您的手速太快了！' + #13#10 +
+    ShowMessage(' 警告：客人，您的手速太快了！' + #13#10 +
                 '系统已自动为您点了一份“松鼠特供三文鱼刺身配椰奶”，账单+100欧！');
 
-    // 如果你有 TMediaPlayer 组件，还能在这里放一段音乐：
-    // MediaPlayer1.Play;
+
 
     ClickCount := 0; // 彩蛋触发后，计数器重置，免得一直弹窗
   end;
@@ -142,6 +151,13 @@ begin
   TimerHeat.Enabled := True; // 开启定时器，锅炉开始烧！
 end;
 
+
+
+procedure TFormentertainment.CheckBox18Click(Sender: TObject);
+begin
+   updateroomordertotal;
+end;
+
 procedure TFormentertainment.ComboBox2Change(Sender: TObject);
 begin
  RichEdit1.SelAttributes.Name := ComboBox1.Text;
@@ -156,12 +172,29 @@ var
  case CurrentMonth of
     3..5: colorbox1.selected:=clOlive;
     6..8: colorbox1.selected:=clSkyBlue;
-    9..11:Colorbox1.selected:=clwebcoral;
+    9..11:Colorbox1.selected:=clwebBurlywood;
     1,2,12:colorbox1.selected:=clWhite;
  end;
  self.color:=colorbox1.selected;
  StatusBar1.SimpleText := 'welcome to hotel entertainment system';
  ClickCount := 0;
+end;
+
+procedure TFormentertainment.updateroomordertotal;
+const
+ PRICE_FRUIT=3.50;//水果拼盘
+ PRICE_BEER=3.00;//啤酒
+ PRICE_POPCORN=2.50;//爆米花
+ PRICE_CANDY=2.00;//润喉糖
+var
+ Total:currency;
+begin
+  Total:=0;
+  if Checkbox18.checked then total:=total+PRICE_FRUIT;
+  if Checkbox19.checked then total:=total+PRICE_BEER;
+  if Checkbox20.checked then total:=total+PRICE_POPCORN;
+  if Checkbox21.checked then total:=total+PRICE_CANDY;
+  showmessage(format('total:$%.2f',[total]));
 end;
 
 
@@ -208,3 +241,4 @@ begin
 end;
 
 end.
+   
