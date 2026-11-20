@@ -203,8 +203,9 @@ end;
 
 procedure TFormentertainment.RichEdit1Change(Sender: TObject);
 begin
- RichEdit1.SelAttributes.Color := clRed;
- RichEdit1.SelAttributes.Style := [fsBold];
+ // 之前测试RichEdit的代码，暂时不用
+ //RichEdit1.SelAttributes.Color := clRed;
+ //RichEdit1.SelAttributes.Style := [fsBold];
 end;
 
 procedure TFormentertainment.TabgymContextPopup(Sender: TObject;

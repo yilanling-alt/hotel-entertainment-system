@@ -567,7 +567,6 @@ object Formentertainment: TFormentertainment
         Width = 50
       end>
     SimplePanel = True
-    ExplicitWidth = 676
   end
   object ToolBar1: TToolBar
     Left = 0
@@ -577,7 +576,6 @@ object Formentertainment: TFormentertainment
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 5
-    ExplicitWidth = 676
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -594,7 +592,7 @@ object Formentertainment: TFormentertainment
       Left = 46
       Top = 0
       Width = 150
-      Height = 22
+      Height = 0
       Caption = 'ActionToolBar1'
       Color = clMenuBar
       ColorMap.DisabledFontColor = 7171437
