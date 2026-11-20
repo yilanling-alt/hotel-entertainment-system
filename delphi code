@@ -79,6 +79,7 @@ type
     ActionToolBar1: TActionToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
+    Button4: TButton;
     procedure TabgymContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabrelaxContextPopup(Sender: TObject; MousePos: TPoint;
@@ -93,6 +94,7 @@ type
     procedure ButtonheatClick(Sender: TObject);
     procedure TimerheatTimer(Sender: TObject);
     procedure CheckBox18Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
 
 
 
@@ -100,6 +102,7 @@ type
     { Private declarations }
     ClickCount: Integer;
     procedure updateroomordertotal;
+    procedure DiscountClick;
   public
     { Public declarations }
   end;
@@ -142,6 +145,34 @@ begin
 
   ListBox4.Items.Add('3. 枫 - 周杰伦');
 
+end;
+
+procedure TFormentertainment.Button4Click(Sender: TObject);
+begin
+  discountclick;
+end;
+
+procedure  TFormentertainment.DiscountClick;
+const
+ PRICE_FRUIT=3.50;//水果拼盘
+ PRICE_BEER=3.00;//啤酒
+ PRICE_POPCORN=2.50;//爆米花
+ PRICE_CANDY=2.00;//润喉糖
+var
+  FinalTotal: Currency;
+  Total:currency;
+begin
+  total:=0;
+    if Checkbox18.Checked then Total := Total + PRICE_FRUIT;
+  if Checkbox19.Checked then Total := Total + PRICE_BEER;
+  if Checkbox20.Checked then Total := Total + PRICE_POPCORN;
+  if Checkbox21.Checked then Total := Total + PRICE_CANDY;
+  // 前提：你的总价变量 Total 是全局变量，或者先算一遍
+  // 假设你已经算出了 Total（没打折前）
+  FinalTotal := Total * 0.9;
+
+  // 把结果格式化输出，注意用了 %.2f，保留两位小数
+  ShowMessage(Format('原价: $%.2f, 打折后: $%.2f', [Total, FinalTotal]));
 end;
 
 procedure TFormentertainment.ButtonheatClick(Sender: TObject);
@@ -203,8 +234,9 @@ end;
 
 procedure TFormentertainment.RichEdit1Change(Sender: TObject);
 begin
- RichEdit1.SelAttributes.Color := clRed;
- RichEdit1.SelAttributes.Style := [fsBold];
+ // 之前测试RichEdit的代码，暂时不用
+ //RichEdit1.SelAttributes.Color := clRed;
+ //RichEdit1.SelAttributes.Style := [fsBold];
 end;
 
 procedure TFormentertainment.TabgymContextPopup(Sender: TObject;
@@ -241,4 +273,3 @@ begin
 end;
 
 end.
-   
