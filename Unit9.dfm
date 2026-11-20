@@ -592,7 +592,7 @@ object Formentertainment: TFormentertainment
       Left = 46
       Top = 0
       Width = 150
-      Height = 0
+      Height = 22
       Caption = 'ActionToolBar1'
       Color = clMenuBar
       ColorMap.DisabledFontColor = 7171437
@@ -607,6 +607,15 @@ object Formentertainment: TFormentertainment
       ParentFont = False
       Spacing = 0
     end
+  end
+  object Button4: TButton
+    Left = 251
+    Top = 35
+    Width = 75
+    Height = 25
+    Caption = 'VIP discount'
+    TabOrder = 6
+    OnClick = Button4Click
   end
   object ImageCollection1: TImageCollection
     Images = <
