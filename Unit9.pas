@@ -3,7 +3,7 @@ unit Unit9;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, system.JSON, system.IOUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, system.dateutils,
   Vcl.ExtCtrls, Vcl.VirtualImage, Vcl.BaseImageCollection, Vcl.ImageCollection, XPStyleActnCtrls,
   System.ImageList, Vcl.ImgList, Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls;
@@ -101,8 +101,10 @@ type
   private
     { Private declarations }
     ClickCount: Integer;
-    procedure updateroomordertotal;
+
     procedure DiscountClick;
+    procedure LoadRoomState(const RoomNo: string);
+    procedure SaveRoomState(const RoomNo: string);
   public
     { Public declarations }
   end;
@@ -182,11 +184,55 @@ begin
   TimerHeat.Enabled := True; // 开启定时器，锅炉开始烧！
 end;
 
+// 1. 保存当前勾选状态（比如放在 CheckBox 的 OnClick 或“保存”按钮里）
+procedure TFormentertainment.SaveRoomState(const RoomNo: string);
+var
+  JSONObj: TJSONObject;
+begin
+  JSONObj := TJSONObject.Create;
+  try
+    // 把界面上的打勾状态打包进 JSON
+    JSONObj.AddPair('fruit_platter', TJSONBool.Create(checkbox18.Checked));
+    JSONObj.AddPair('beer_package', TJSONBool.Create(checkbox19.Checked));
+    JSONObj.AddPair('popcorn', TJSONBool.Create(checkbox20.Checked));
+    JSONObj.AddPair('throat_lozenge', TJSONBool.Create(checkbox21.Checked));
+
+
+    // 按房间号存成独立文件，比如 101.json
+    TFile.WriteAllText(RoomNo + '.json', JSONObj.ToString, TEncoding.UTF8);
+  finally
+    JSONObj.Free;
+  end;
+end;
+
+// 2. 读取状态恢复界面（工作人员上完厕所回来 / 切换房间时调用）
+procedure TFormentertainment.LoadRoomState(const RoomNo: string);
+var
+  JSONStr: string;
+  JSONObj: TJSONObject;
+begin
+  if not TFile.Exists(RoomNo + '.json') then Exit;
+
+  JSONStr := TFile.ReadAllText(RoomNo + '.json', TEncoding.UTF8);
+  JSONObj := TJSONObject.ParseJSONValue(JSONStr) as TJSONObject;
+  if Assigned(JSONObj) then
+  try
+    // 把 JSON 里的 true/false 还原回界面打勾状态
+    checkbox18.Checked:= JSONObj.GetValue<Boolean>('fruit_platter', False);
+    checkbox19.Checked:= JSONObj.GetValue<Boolean>('beer_package', False);
+    checkbox20.Checked:= JSONObj.GetValue<Boolean>('popcorn', False);
+    checkbox21.Checked:= JSONObj.GetValue<Boolean>('throat_lozenge', False);
+
+  finally
+    JSONObj.Free;
+  end;
+end;
 
 
 procedure TFormentertainment.CheckBox18Click(Sender: TObject);
 begin
-   updateroomordertotal;
+   SaveRoomState('102');
+
 end;
 
 procedure TFormentertainment.ComboBox2Change(Sender: TObject);
@@ -195,7 +241,6 @@ begin
 end;
 
 procedure TFormentertainment.FormCreate(Sender: TObject);
-
 var
   CurrentMonth:Integer;
   begin
@@ -209,24 +254,9 @@ var
  self.color:=colorbox1.selected;
  StatusBar1.SimpleText := 'welcome to hotel entertainment system';
  ClickCount := 0;
+ Loadroomstate('102');
 end;
 
-procedure TFormentertainment.updateroomordertotal;
-const
- PRICE_FRUIT=3.50;//水果拼盘
- PRICE_BEER=3.00;//啤酒
- PRICE_POPCORN=2.50;//爆米花
- PRICE_CANDY=2.00;//润喉糖
-var
- Total:currency;
-begin
-  Total:=0;
-  if Checkbox18.checked then total:=total+PRICE_FRUIT;
-  if Checkbox19.checked then total:=total+PRICE_BEER;
-  if Checkbox20.checked then total:=total+PRICE_POPCORN;
-  if Checkbox21.checked then total:=total+PRICE_CANDY;
-  showmessage(format('total:$%.2f',[total]));
-end;
 
 
 
