@@ -95,13 +95,16 @@ type
     procedure TimerheatTimer(Sender: TObject);
     procedure CheckBox18Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure TreeView1Change(Sender: TObject; Node: TTreeNode);
+    procedure TreeView1CustomDrawItem(Sender: TCustomTreeView; Node: TTreeNode;
+      State: TCustomDrawState; var DefaultDraw: Boolean);
 
 
 
   private
     { Private declarations }
     ClickCount: Integer;
-
+    FCurrentRoom:string;
     procedure DiscountClick;
     procedure LoadRoomState(const RoomNo: string);
     procedure SaveRoomState(const RoomNo: string);
@@ -263,7 +266,8 @@ var
  self.color:=colorbox1.selected;
  StatusBar1.SimpleText := 'welcome to hotel entertainment system';
  ClickCount := 0;
- Loadroomstate('102');
+ FCurrentRoom:='';
+ Treeview1.FullExpand;
 end;
 
 
@@ -309,6 +313,38 @@ end;
 procedure TFormentertainment.TrackBar1Change(Sender: TObject);
 begin
   Label3.Caption := 'Vol: ' + IntToStr(TrackBar1.Position);
+end;
+
+procedure TFormentertainment.TreeView1Change(Sender: TObject; Node: TTreeNode);
+begin
+   // 1. 忽略最顶层的标题节点（比如“KTV 房间列表”，只响应具体的房间子节点）
+  if (Node = nil) or (Node.Level = 0) then Exit;
+
+  // 2. 离开上一个房间前，自动把上一个房间的账单存进 JSON
+  if FCurrentRoom <> '' then
+    SaveRoomState(FCurrentRoom);
+
+  // 3. 记录新点中的房间号（比如 '101' 或 '102'）
+  FCurrentRoom := Node.Text;
+
+  // 4. 加载新房间的 JSON 账单（如果该房间还没生成过 JSON，就先把界面复选框全清空）
+  if TFile.Exists(TPath.Combine(ExtractFilePath(ParamStr(0)), FCurrentRoom + '.json')) then
+    LoadRoomState(FCurrentRoom)
+  else
+  begin
+    // 新房间默认全不勾选（把你界面上的 CheckBox 设为 False）
+    CheckBox18.Checked :=False;
+    CheckBox19.Checked := False;
+    CheckBox20.Checked := False;
+    CheckBox21.Checked := False;
+end;
+end;
+procedure TFormentertainment.TreeView1CustomDrawItem(Sender: TCustomTreeView;
+  Node: TTreeNode; State: TCustomDrawState; var DefaultDraw: Boolean);
+begin
+if Node.Selected then
+  Sender.Canvas.Brush.color:=clNavy;
+
 end;
 
 end.

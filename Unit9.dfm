@@ -502,12 +502,15 @@ object Formentertainment: TFormentertainment
         OnChange = TrackBar1Change
       end
       object TreeView1: TTreeView
-        Left = 376
+        Left = 372
         Top = 199
         Width = 97
         Height = 81
+        HideSelection = False
         Indent = 19
         TabOrder = 13
+        OnChange = TreeView1Change
+        OnCustomDrawItem = TreeView1CustomDrawItem
         Items.NodeData = {
           070100000009540054007200650065004E006F00640065003100000000000000
           00000000FFFFFFFFFFFFFFFF0000000000000000000600000001094B00540056
