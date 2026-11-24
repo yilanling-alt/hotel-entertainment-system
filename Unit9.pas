@@ -196,7 +196,11 @@ begin
     JSONObj.AddPair('beer_package', TJSONBool.Create(checkbox19.Checked));
     JSONObj.AddPair('popcorn', TJSONBool.Create(checkbox20.Checked));
     JSONObj.AddPair('throat_lozenge', TJSONBool.Create(checkbox21.Checked));
-
+    JSONObj.AddPair('sake',TJSONBool.Create(checkbox5.checked));
+    JSONObj.AddPair('whiskey',TJSONBool.Create(whiskey.checked));
+    JSONObj.AddPair('Guinness',TJSONBool.Create(checkbox6.checked));
+    JSONObj.AddPair('red wine',TJSONBool.Create(checkbox7.checked));
+    JSONObj.AddPair('white wine',TJSONBool.Create(checkbox8.checked));
 
     // 按房间号存成独立文件，比如 101.json
     TFile.WriteAllText(RoomNo + '.json', JSONObj.ToString, TEncoding.UTF8);
@@ -210,6 +214,7 @@ procedure TFormentertainment.LoadRoomState(const RoomNo: string);
 var
   JSONStr: string;
   JSONObj: TJSONObject;
+  B: Boolean;
 begin
   if not TFile.Exists(RoomNo + '.json') then Exit;
 
@@ -222,7 +227,11 @@ begin
     checkbox19.Checked:= JSONObj.GetValue<Boolean>('beer_package', False);
     checkbox20.Checked:= JSONObj.GetValue<Boolean>('popcorn', False);
     checkbox21.Checked:= JSONObj.GetValue<Boolean>('throat_lozenge', False);
-
+      if JSONObj.TryGetValue<Boolean>('sake', B) then CheckBox5.Checked := B;
+      if JSONObj.TryGetValue<Boolean>('whiskey', B) then whiskey.Checked := B;
+      if JSONObj.TryGetValue<Boolean>('Guinness', B) then CheckBox6.Checked := B;
+      if JSONObj.TryGetValue<Boolean>('red_wine', B) then CheckBox7.Checked := B;
+      if JSONObj.TryGetValue<Boolean>('white_wine', B) then CheckBox8.Checked := B;
   finally
     JSONObj.Free;
   end;
